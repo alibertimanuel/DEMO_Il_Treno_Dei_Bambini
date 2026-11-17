@@ -10,7 +10,7 @@ Un viaggio tra esperienze, emozioni e scelte, per riscoprire una storia di infan
 
 Il gioco è online e si può provare direttamente dal browser, senza installare nulla:
 
-👉 **[Gioca alla demo](https://alibertimanuel.github.io/DEMO_Treno_Dei_Bambini/)**
+👉 **[Gioca alla demo](https://alibertimanuel.github.io/DEMO_Il_Treno_Dei_Bambini/)**
 
 ## 📁 Contenuto del repository
 

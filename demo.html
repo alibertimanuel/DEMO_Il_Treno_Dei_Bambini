@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Il Treno di Amerigo</title>
+<link rel="stylesheet" href="css/stile.css">
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="flash"></div>
+<div class="lb" id="lbT"></div><div class="lb" id="lbB"></div>
+<div id="hud" hidden><div id="chap"></div><ul id="objs"></ul></div>
+<div id="topbtns" hidden><button id="bView" type="button">Visuale: occhi</button><button id="bMusic" type="button">Audio: sì</button><button id="bMenu" type="button">Pausa</button></div>
+<div id="toast" hidden></div>
+<div id="prompt" hidden></div>
+
+<div id="dlg" hidden>
+  <div class="stub"><canvas id="portrait" width="16" height="16"></canvas><div id="dname"></div></div>
+  <div class="dbody">
+    <div class="dmeta"><span>FERROVIE DELLO STATO · III CLASSE</span><span>NAPOLI → MODENA</span></div>
+    <div id="dtext"></div>
+    <div id="dchoices"></div>
+    <div id="dnext" hidden>▼</div>
+  </div>
+</div>
+
+<div id="card" hidden>
+  <div class="cardin">
+    <div id="cmap" hidden></div>
+    <div id="ckick"></div>
+    <h2 id="ctitle"></h2>
+    <div id="csub"></div>
+    <div id="cbody"></div>
+    <div id="cnote" hidden><span id="cchip"></span><p id="cnotetext"></p></div>
+    <button id="cgo" type="button">Continua ▸</button>
+  </div>
+</div>
+
+<div id="splash" hidden>
+  <div class="sp-top"><div class="sp-kick">NAPOLI · 1946</div><h1>Il Treno di Amerigo</h1><p>Un biglietto di sola andata verso il Nord. Un inverno che cambia tutto.</p><i class="sp-line"></i></div>
+  <div class="sp-go">Clicca per partire</div>
+  <div class="sp-bot"><div class="sp-names">EDOARDO MASCIANTONIO · DIENG PENDA · ANDREA FALLUCCHI · MANUEL ALIBERTI</div><div class="sp-src">Liberamente ispirato a «Il treno dei bambini»</div></div>
+</div>
+<div id="menu">
+  <div class="mwrap" id="mMain">
+    <div class="tk">BIGLIETTO N° 004619 · NAPOLI C.LE → MODENA · III CL.</div>
+    <h1>Il Treno<br>di Amerigo</h1>
+    <p class="tag">Un gioco liberamente ispirato a «Il treno dei bambini». Napoli, 1946: un bambino, un treno, due madri.</p>
+    <div id="mmap"></div>
+    <div class="mrow"><button id="mCont" class="big" type="button" hidden>Continua ▸</button><button id="mStart" class="big" type="button">Inizia il viaggio ▸</button></div>
+    <div class="mrow"><button id="mScenes" class="ghost" type="button">Scegli una scena</button><button id="mHelp" class="ghost" type="button">Come si gioca</button><button id="mSet" class="ghost" type="button">Impostazioni</button></div>
+    <p class="credit">Un gioco di Edoardo Masciantonio, Dieng Penda, Andrea Fallucchi e Manuel Aliberti. Progetto scolastico non ufficiale, liberamente ispirato a «Il treno dei bambini» di Viola Ardone (Einaudi, 2019) e al film di Cristina Comencini (2024). Senza spoiler. Durata: circa 40 minuti.</p>
+  </div>
+  <div class="mwrap panel" id="mScenesP" hidden>
+    <h2>Scegli una scena</h2>
+    <p class="small">Le etichette dicono se la scena segue il libro, il film o è inventata per il gioco. Da una scena il viaggio prosegue fino alla fine.</p>
+    <div class="panel" id="sceneList"></div>
+    <div class="mrow"><button class="ghost" type="button" data-back>◂ Indietro</button></div>
+  </div>
+  <div class="mwrap panel" id="mHelpP" hidden>
+    <h2>Come si gioca</h2>
+    <div class="keys">
+      <b>WASD / FRECCE</b><span>Cammina</span>
+      <b>MOUSE / Z X</b><span>Trascina col mouse, oppure Z e X, per girare la visuale</span>
+      <b>V</b><span>Si gioca in prima persona, con gli occhi di Amerigo (col mouse guardi anche in alto e in basso). V passa alla visuale da dietro e ritorno</span>
+      <b>E / SPAZIO</b><span>Parla, raccogli, fai avanzare i dialoghi</span>
+      <b>1 2 3</b><span>Scegli una risposta</span>
+      <b>TELEFONO</b><span>Joystick a sinistra, pulsante A a destra, trascina lo schermo per girare</span>
+    </div>
+    <p class="small">Segui gli obiettivi in alto a sinistra. I personaggi con il punto esclamativo giallo hanno qualcosa da dirti. Ci sono tre giochi in 3D, senza tempo limite: le pezze nel vento al mercato di Napoli, la discesa in slittino a Modena e la battaglia di palle di neve a Natale (SPAZIO o A per tirare). E poi i rimbalzi sul mare, il rifugio, le parole, le galline, le tabelline, la mazurka e il violino. Quando lo schermo diventa nero con un testo, premi E, SPAZIO o tocca il testo per andare avanti.</p>
+    <div class="mrow"><button class="ghost" type="button" data-back>◂ Indietro</button></div>
+  </div>
+</div>
+
+<div id="pause" hidden>
+  <div class="panel" style="max-width:360px;width:100%">
+    <h2>In pausa</h2>
+    <button id="pResume" type="button">Riprendi</button>
+    <button id="pRestart" class="ghost" type="button">Ricomincia il capitolo</button>
+    <button id="pSet" class="ghost" type="button">Impostazioni</button>
+    <button id="pTitle" class="ghost" type="button">Torna al titolo</button>
+  </div>
+</div>
+
+<div id="settings" hidden>
+  <div class="panel" style="max-width:420px;width:100%">
+    <h2>Impostazioni</h2>
+    <p class="small">Qualità grafica. Alta è quella preimpostata, con l'immagine a piena risoluzione; Media alleggerisce un poco i computer meno potenti.</p>
+    <div class="qrow"><button type="button" data-q="alto">Alta</button><button type="button" data-q="medio">Media</button></div>
+    <p class="small"><label><input type="checkbox" id="sGuide"> Luce guida verso l'obiettivo</label></p>
+    <p class="small"><label><input type="checkbox" id="sFps"> Mostra i fotogrammi al secondo</label></p>
+    <button id="sClose" type="button">Chiudi</button>
+  </div>
+</div>
+<div id="fps" hidden></div>
+<div id="garrow" hidden aria-hidden="true"></div>
+
+<div id="mini" hidden>
+  <div class="rbox">
+    <div id="mkick"></div>
+    <div id="mtitle"></div>
+    <canvas id="mc" width="240" height="300"></canvas>
+    <div class="rhelp" id="mhelp"></div>
+  </div>
+</div>
+
+<div id="touch" hidden><div id="joy"><div id="knob"></div></div><button id="bA" type="button">A</button></div>
+<div id="fade"></div>
+<div id="poem" hidden></div>
+<div id="credits" hidden><div id="croll"></div><span id="cskip">ESC PER SALTARE</span><button id="cend" type="button" class="ghost">Torna al titolo</button></div>
+
+<div id="oops" hidden style="position:fixed;inset:0;z-index:99;background:#15111d;color:#f2ecdf;display:flex;align-items:center;justify-content:center;padding:24px;font:17px/1.5 'Courier New',monospace"><div style="max-width:520px;display:flex;flex-direction:column;gap:12px"><b style="color:#e9c46a;font-size:22px">Il gioco non è partito</b><span id="oopsMsg"></span><small id="oopsTech" style="opacity:.6"></small><button type="button" onclick="location.reload()">Ricarica</button></div></div>
+<div id="trailer" aria-live="polite"></div><div id="tskip" hidden>clicca o premi un tasto per saltare il trailer</div>
+<script src="js/errori.js"></script>
+<script src="js/three.min.js"></script>
+<script>window.TRENO_DEMO=true;</script>
+<script src="js/01-motore.js"></script>
+<script src="js/02-facciate-e-citta.js"></script>
+<script src="js/03-personaggi.js"></script>
+<script src="js/04-gioco.js"></script>
+<script src="js/05-napoli.js"></script>
+<script src="js/06-viaggio.js"></script>
+<script src="js/07-modena.js"></script>
+<script src="js/08-titolo-minigiochi.js"></script>
+<script src="js/09-capitoli.js"></script>
+<script src="js/09b-trailer.js"></script>
+<script src="js/09c-suoni.js"></script>
+<script src="js/09d-giochi3d.js"></script>
+<script src="js/10-avvio.js"></script>
+</body>
+</html>

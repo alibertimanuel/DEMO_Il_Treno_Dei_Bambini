@@ -1,0 +1,13 @@
+SUONI DEL GIOCO
+Registrazioni di BigSoundBank (https://bigsoundbank.com), licenza CC0 (pubblico dominio), di Joseph Sardin.
+Accorciate, messe in mono e in loop per il gioco.
+
+mare.ogg          #0267  Sea waves and seagulls
+mercato.ogg       #2728  Outdoor market 1
+vento.ogg         #0904  Wind in the trees
+treno-dentro.ogg  #2727  Train car
+fuoco.ogg         #0031  Fireplace #2
+galline.ogg       #0975  Hen lays #1
+campana.ogg       #0830  1 church bell
+fischio.ogg       #3015  Steam locomotive, stop
+neve-passi.ogg    #0208  Footstep in the snow #1
